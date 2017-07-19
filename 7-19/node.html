@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		面向对象： 就是有特定特征的一类放到封装函数中 ES6:
+
+		<script type="text/javascript">
+			/*
+					 面向对象：
+					
+					1.概念：	面向对象是一种***对现实世界理解和抽象***的方法，是计算机编程技术发展到一定阶段后的产物。
+					2.核心：
+						抽象
+							抽离
+							长的像
+						
+						把功能类似或者相同的代码抽离出来，归为一类。
+						
+					
+					3.面向对象编程：
+						
+						把功能类似或者相同的代码抽离出来，归为一类，把一些描述性的特征挂在这个类的原型上的一种编程思想。
+						
+						
+						
+					4.属性：
+					
+						div.id
+						div.index
+						div.innerHTML
+						div.style...
+						
+						属性前面是有主的。
+						
+						对象（obj，arr，function）下才能有属性
+						
+					5.变量:
+						var arr
+						前面是没有对象的（没有主的）
+					
+					6.方法：
+					
+						obj.fn = function(){
+							alert(this);
+						}
+						
+						方法前面有主，默认this指向主
+					7.函数：
+						
+						function fn(){}
+						函数前没有主，默认this指向window
+						
+					8.new:
+						函数的运算符
+						
+						new过之后的变化:
+							(1):this指向
+								new之前函数里的this指向window,new之后函数里this指向Fn这个对象;
+							(2)不用写return,以为这个时候就会返回这个实例化对象
+								举个栗子：
+								function Fn(name,age){
+									this.name = name;
+									this.age = age;
+								}
+								var fn = new Fn();
+								这时fn就是一个实例化对象，Fn就是构造函数，也可以叫类，也可叫工厂，这个构造函数里的this指向就是Fn这个对象或者指向这个实例化对象了，这个时候会返回Fn{name:name,age:age}这个对象；
+								如果这个时候非要写return，这个return后如果是单一类型，那么依然返回实例化对象
+								如果return后是复合类型，那么就返回这个复合类型
+					*/
+			function teacher(name, age) {
+				//this指向这个teacher{name:name,age:age}直接写this.name
+				this.name = name;
+				this.age = age;
+				console.log(this)//指向实例化对象Fn{name:name,age:age}|t
+				this.say = function() {
+					console.log('我的名字叫' + this.name);
+				}
+				//			var arr = [1,2,3]
+				//			return [1,2,3];
+				//不用写return，直接返回teacher这个对象,如果强行return一个简单类型，这时候返回值还是这个对象，如果return一个复合类型，那么就会返回这个复合类型了
+			}
+			var t = new teacher('你真胖', 18);
+			//t就是实例化对象，teacher就是构造函数|类
+			t.say();
+			console.log(t);
+			
+				/*
+					9.原型与原型链:
+						原型：prototype
+							函数的一个属性，**属性值为对象***
+							作用：优化性能
+							
+						原型链：__proto__
+						
+							实例化对象身上没有原型号，但是有原型链
+							
+							函数身上既有原型又有原型链
+							
+						重点：
+							1.实例化对象的原型链 == 构造函数的原型
+		
+							2.原型链就是实例化对象与构造函数之间的桥梁。
+						
+							3.属性放在类里面
+		
+							4.方法挂在原型上
+							
+						优先级的问题：
+							对于实例化对象：实例化对象身上有没有方法 > 实例化对象的原型链 === 构造函数的原型 > 构造函数下的原型链 === Object的原型
+							构造函数：构造函数本身 > Function的原型 > Object的原型
+						例：
+				*/
+					function Fn(name,age){
+						this.name = name;
+						this.age = age;
+					}
+					
+					Object.prototype.say = function(){
+						alert('Object');
+					}
+					Function.prototype.say = function(){
+						alert('Function');
+					}
+					
+					var f1 = new Fn('真胖',18);
+					
+			//		f1.say = function(){
+			//			alert('f1自己的say');
+			//		}
+					
+					f1.say();
+					Fn.say();
+			
+		</script>
+	</body>
+
+</html>
