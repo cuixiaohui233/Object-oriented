@@ -76,18 +76,21 @@
 				//this指向这个teacher{name:name,age:age}直接写this.name
 				this.name = name;
 				this.age = age;
-				console.log(this)//指向实例化对象Fn{name:name,age:age}|t
-				this.say = function() {
-					console.log('我的名字叫' + this.name);
-				}
+//				console.log(this)//指向实例化对象Fn{name:name,age:age}|t
+//				this.say = function() {
+////					console.log('我的名字叫' + this.name);
+//				}
 				//			var arr = [1,2,3]
 				//			return [1,2,3];
 				//不用写return，直接返回teacher这个对象,如果强行return一个简单类型，这时候返回值还是这个对象，如果return一个复合类型，那么就会返回这个复合类型了
 			}
+			teacher.prototype.say = function(){
+				alert('我的名字叫' + this.name);
+			}
 			var t = new teacher('你真胖', 18);
 			//t就是实例化对象，teacher就是构造函数|类
 			t.say();
-			console.log(t);
+//			console.log(t);
 			
 				/*
 					9.原型与原型链:
@@ -147,7 +150,7 @@
 				*/
 				var s = new Object();
 //				Object.say();
-				s.say();
+				s.say(); 
 		</script>
 	</body>
 
