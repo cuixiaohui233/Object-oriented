@@ -133,9 +133,21 @@
 			//			alert('f1自己的say');
 			//		}
 					
-					f1.say();
-					Fn.say();
-			
+//					f1.say();
+//					console.dir(f1);
+//					Fn.say();
+				/*
+				10.function (){}是个特殊的，它既有原型链，又有原型，他的原型是给他的实例化对象用的，如果直接是找他自己，那么就会找到构造他的Function下的原型 
+				
+				*/
+				var n = function(){};
+//				n.say();
+				/*
+				11.直接用这个Object，就会找到Function，如果new Object的话，就不会找到Function 
+				*/
+				var s = new Object();
+//				Object.say();
+				s.say();
 		</script>
 	</body>
 
