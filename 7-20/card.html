@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		#box{
+			width:400px;
+			height:500px;
+		}
+		#box div{
+			width:400px;
+			height:500px;
+			display: none;
+			border:1px solid #000;
+		}
+		#box .active{
+			display: block;
+		}
+		#box .show{
+			background:skyblue;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="button" name="" id="" value="选项1"  class="show"/>
+		<input type="button" name="" id="" value="选项2" />
+		<input type="button" name="" id="" value="选项3"/>
+		<div class="active">这时第一个</div>
+		<div>这时第二个</div>
+		<div>这时第三个</div>
+	</div>
+	<script type="text/javascript">
+		function keyTab(obj){
+			this.btns = box.getElementsByTagName('input');
+			this.divs = box.getElementsByTagName('div');
+		}
+		keyTab.prototype.Event = function(){
+			var _this = this;
+			for(var i=0;i<this.btns.length;i++){
+				this.btns[i].index = i;
+				this.btns[i].onclick = function(){
+					_this.change(this);
+				}
+			}
+		}
+		keyTab.prototype.change = function(that){
+			//that传进来的是btns[i];
+			for(var i=0;i<this.btns.length;i++){
+				this.btns[i].className = this.divs[i].className = '';
+			}
+			that.className = 'show';
+			this.divs[that.index].className = 'active';
+		}
+		var box = document.getElementById('box');
+		var t = new keyTab('box');
+		t.Event();
+	</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		#div1{
+			width:200px;
+			height: 200px;
+			background: red;
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		#div2{
+			width:200px;
+			height: 200px;
+			background: skyblue;
+			position: absolute;
+			top:0;
+			left:200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+	<div id="div2"></div>
+	<script type="text/javascript">
+		/*
+			拷贝继承：
+				1.属性继承
+					调用父类并且改变this的指向
+					用call()
+				2.方法继承
+					遍历父类，把每个父类的方法赋值给子类
+				
+				赋值：
+					简单类型就是赋值.(改变一个不会影响另一个)
+				赋址：
+					复合类型就是赋址。(改变一个会影响另一个)
+				例：
+		*/		var num = 10;
+				var num1 = num;
+				console.log(num);
+				num1++;
+				console.log(num1);//这时不会影响num
+				
+				var arr = [1,2,3];
+				var arr1 = arr;
+				arr1.push(4);
+				console.log(arr);
+				console.log(arr1);//这时会影响arr;
+				
+		/***********用继承来做两个元素的拖拽函数*************/
+		var div1 = document.getElementById('div1');
+		var div2 = document.getElementById('div2');
+		function drag(obj){
+			this.div1 = obj;
+			this.disX = 0;
+			this.disY = 0;
+			this.l = 0;
+			this.t = 0;
+//			console.log(this)
+			var _this = this;
+			this.div1.onmousedown = function(ev){
+				_this.disX = ev.clientX - this.offsetLeft;
+				_this.disY = ev.clientY - this.offsetTop;
+				document.onmousemove = function(ev){
+	//				console.log(_this)
+					_this.move(ev);
+				}
+				document.onmouseup = function(ev){
+					_this.up(ev);
+				}
+			}
+			
+		}
+		drag.prototype.move = function(ev){
+			this.l = ev.clientX - this.disX;
+			this.t = ev.clientY - this.disY;
+			this.div1.style.left = this.l + 'px';
+			this.div1.style.top = this.t + 'px';
+		}
+		drag.prototype.up = function(ev){
+			document.onmousemove = document.onmouseup = null;
+		}
+		
+		//给div2添加拖拽方法，然后再添加范围
+		//1.先继承父类drag的属性
+		function drag1(obj){
+			//这里的this指向的是drag1这个对象
+			drag.call(this,obj);//call改变this指向，现在指向的是drag1这个对象，在把id传进去
+		}
+		//2.遍历drag，把drag的方法都给drag1
+		for(var attr in drag.prototype){
+			drag1.prototype[attr] = drag.prototype[attr];
+		}
+		console.dir(drag.prototype[attr]);
+		drag1.prototype.move = function(ev){
+			this.l = ev.clientX - this.disX;
+			this.t = ev.clientY - this.disY;
+			if(this.l < 0){
+				this.l = 0;
+			}else if(this.l > window.innerWidth - this.div1.offsetWidth){
+				this.l = window.innerWidth - this.div1.offsetWidth;
+			}
+			
+			if(this.t < 0){
+				this.t = 0;
+			}else if(this.t > window.innerHeight - this.div1.offsetHeight){
+				this.t = window.innerHeight - this.div1.offsetHeight;
+			}
+			this.div1.style.left = this.l + 'px';
+			this.div1.style.top = this.t + 'px';
+		}
+		var t = new drag(div1);
+		var s = new drag1(div2);
+	</script>
+</body>
+</html>
