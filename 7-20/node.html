@@ -24,6 +24,39 @@
 				用call()
 			2.方法继承
 				遍历父类，把每个父类的方法赋值给子类
+		类式继承：
+			要做属性和方法继承的时候，要分开继承
+			例：
+			*/
+			function Aaa(){   //父类
+				this.name = [1,2,3];
+			}	
+			Aaa.prototype.showName = function(){
+				alert( this.name );
+			};
+			
+			function Bbb(){   //子类
+				
+				Aaa.call(this);
+				
+			}
+			
+			var F = function(){};
+			F.prototype = Aaa.prototype;
+			Bbb.prototype = new F();
+			Bbb.prototype.constructor = Bbb; //修正指向问题
+			
+			var b1 = new Bbb();
+			//b1.showName();
+			//alert( b1.name );
+			//alert( b1.constructor );
+			b1.name.push(4);
+			
+			var b2 = new Bbb();
+			
+			alert( b2.name );
+			/*
+			
 			
 			赋值：
 				简单类型就是赋值.(改变一个不会影响另一个)
