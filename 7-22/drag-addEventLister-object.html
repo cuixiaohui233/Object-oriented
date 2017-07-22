@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		#div{
+			width:200px;
+			height:200px;
+			background: lightgreen;
+			position: absolute;
+			left:0;
+			top:0;
+		}
+		#box{
+			width:200px;
+			height:200px;
+			background: hotpink;
+			position: absolute;
+			left:200px;
+			top:0;
+		}
+	</style>
+</head>
+<body>
+	<div id="div"></div>
+	<div id="box"></div>
+	<script type="text/javascript">
+		function drag(id){
+			this.div = document.getElementById(id);
+//			console.log(this.div);
+			this.disX = 0;
+			this.disY = 0;
+			this.l = 0;
+			this.t = 0;
+			
+		}
+		drag.prototype.init = function(){
+			var _this = this;
+			this.div.addEventListener('mousedown',function(ev){
+				_this.down(ev);
+				ev.preventDefault();
+			});
+		}
+		drag.prototype.down = function(ev){
+			this.disX = ev.clientX - this.div.offsetLeft;
+			this.disY = ev.clientY - this.div.offsetTop;
+			var _this = this;
+			var Move = function(ev){
+				_this.move(ev);
+			}
+			var Up = function(ev){
+				_this.up(ev,Move,Up);
+			}
+			this.div.addEventListener('mousemove',Move);
+			this.div.addEventListener('mouseup',Up);
+			
+		}
+		drag.prototype.move = function(ev){
+			this.l = ev.clientX - this.disX;
+			this.t = ev.clientY - this.disY;
+			this.div.style.left = this.l + 'px';
+			this.div.style.top = this.t + 'px';
+		}
+		drag.prototype.up = function(ev,Move,Up){
+			this.div.removeEventListener('mousemove',Move);
+			this.div.removeEventListener('mouseup',Up);
+		}
+		//继承
+		function drag2(id){
+			drag.call(this,id);
+		}
+		
+		function paohui(){};
+		
+		paohui.prototype = drag.prototype;
+		
+		var ph = new paohui();
+		
+		drag2.prototype = ph;
+		
+		drag2.prototype.constructor = drag2;
+		
+		console.log(drag2.prototype.constructor);
+		
+		/*
+		consturctor:
+			构造函数上的一个属性。这个属性指向这个实例化对象的构造函数。
+		
+			不过这个属性非常容易被修改。如果被修改，那么手动的修正constructor的指向。
+		*/
+		
+		
+		drag2.prototype.move = function(ev){
+			this.l = ev.clientX - this.disX;
+			this.t = ev.clientY - this.disY;
+			if(this.l <0){
+				this.l = 0;
+			}else if(this.l > window.offsetWidth - this.div.offsetWidth){
+				this.l = window.offsetWidth - this.div.offsetWidth;
+			}
+			this.div.style.left = this.l + 'px';
+			this.div.style.top = this.t + 'px';
+		}
+		var d = new drag('div');
+		var d1 = new drag2('box');
+		d.init();
+		d1.init();
+	</script>
+</body>
+</html>

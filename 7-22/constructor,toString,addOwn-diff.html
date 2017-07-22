@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			1.constructor:
+				构造函数上的一个属性。这个属性指向这个实例化对象的构造函数。(查找构造函数用的)
+				不过这个属性非常容易被修改。如果被修改，那么手动的修正constructor的指向。
+			2.hasOwnproperty:
+				判断某个属性是不是这个对象下的，返回值是boolean;
+				注意：
+					属性只有在对象自身上的才为true，原型上都不算。
+			3.toString:
+				把别的数据类型转成字符串。
+				每个内置对象都有toString方法
+				
+				由什么内置的构造函数构造出来的
+				用途:
+					1.转进制
+						num.toString(要转换的进制数)
+					2.判断内置对象的实例化对象的构造函数是谁
+					
+					判断一个数组是不是数组的方法:
+					Object.prototype.toSting.call(arr) === '[object Array]'
+				注意：
+					除了obj,都需要用Object.prototype.toString.call(要判断类型的变量名 ) == '[object 要判断的这个变量是不是什么类型如：Array|Object|str]'
+		*/
+	</script>
+</body>
+</html>
