@@ -17,6 +17,11 @@
 			非严格模式:
 				只要函数名 + () 前面没有主或者改变this的方法，this就是window
 				如果绑在时间身上，那么还是事件触发的那个元素。
+				
+				
+			人为手动去设置 > new > 定时器  > 事件 > fn()
+		
+			碰到函数或者new this就有可能会变
 		*/
 		
 		
@@ -148,6 +153,31 @@
 				}
 				
 				setTimeout(arr.fn,1000);//window
+			}
+			
+			
+			function fn(){
+				console.log(this);
+		//		var fn2 = () =>{
+		//			alert(this);//fn{}
+		//		}
+		//		fn2();
+			}
+			//new fn();
+			
+			
+			
+			
+			
+			document.onclick = function(){
+				//fn();
+				//setTimeout(new fn,1000); //fn{} //报错
+				
+				alert(this);//document
+				setTimeout(function(){
+					alert(this);//window
+					//new fn;  //fn{}
+				},1000);
 			}
 	</script>
 </body>
