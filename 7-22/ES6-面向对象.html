@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		class person{
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			say(){
+				alert(this.name+'小仙女');
+			}
+			running(){
+				alert(this.name+'会跑');
+			}
+		}
+		//继承
+		class person2 extends person{
+			constructor(name,age,job,song){
+				super(name,age);
+				this.job = job;
+				this.song = song;
+			}
+			
+			sing(){
+				alert(this.name+'是个'+this.job+'，会唱'+this.song);
+			}
+		}
+		var s = new person('崔小慧',22);
+		var t = new person2('王泽慧',23,'歌手','《我》');
+		var d = new person2('王慧仙',22,'rapper','《freestyle》');
+//		alert(s);
+		s.say();
+		t.sing();
+		d.sing();
+	</script>
+</body>
+</html>

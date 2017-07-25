@@ -129,7 +129,6 @@
 					Function.prototype.say = function(){
 						alert('Function');
 					}
-					
 					var f1 = new Fn('真胖',18);
 					
 			//		f1.say = function(){
@@ -144,13 +143,13 @@
 				
 				*/
 				var n = function(){};
-//				n.say();
+				n.say();
 				/*
 				11.直接用这个Object，就会找到Function，如果new Object的话，就不会找到Function 
 				*/
 				var s = new Object();
 //				Object.say();
-				s.say(); 
+//				s.say(); 
 		</script>
 	</body>
 
